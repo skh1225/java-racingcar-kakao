@@ -1,8 +1,9 @@
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CarTest {
 
@@ -28,4 +29,16 @@ public class CarTest {
         String carName = car.getName();
         assertThat(carName).isEqualTo("pobi");
     }
+
+    @CsvSource({"pobiii, false", "pobii, true", "p, true"})
+    @ParameterizedTest
+    void validateName(String name, boolean isValid) {
+        Throwable thrown = catchThrowable(() -> new Car(name));
+        if (!isValid) {
+            assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
+            return;
+        }
+        assertThat(thrown).isNull();
+    }
+
 }
