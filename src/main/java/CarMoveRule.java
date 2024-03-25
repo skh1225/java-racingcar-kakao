@@ -3,14 +3,17 @@ import java.util.Random;
 public class CarMoveRule {
 
     private static final int MOVE_THRESHOLD = 4;
-    private static final int MAX_VALUE = 9;
 
-    public static boolean move(int value) {
-        return value >= MOVE_THRESHOLD;
+    public boolean move() {
+        int value = generateValue();
+        return move(value);
     }
 
-    public static boolean move() {
-        int value = (new Random()).nextInt(MAX_VALUE + 1);
-        return move(value);
+    protected int generateValue() {
+        return (new Random()).nextInt(10);
+    }
+
+    public boolean move(int value) {
+        return value >= MOVE_THRESHOLD;
     }
 }

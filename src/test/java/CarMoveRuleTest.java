@@ -8,7 +8,9 @@ public class CarMoveRuleTest {
     @CsvSource({"0, false", "3, false", "4, true", "9, true"})
     @ParameterizedTest
     void move(int value, boolean move) {
-        boolean result = CarMoveRule.move(value);
+        CarMoveRule carMoveRule = new CarMoveRule();
+
+        boolean result = carMoveRule.move(value);
         assertThat(result).isEqualTo(move);
     }
 }
