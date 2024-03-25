@@ -1,15 +1,13 @@
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarRace {
 	private final List<Car> cars;
 	private final CarMoveRule carMoveRule;
-	private final int maxStage;
-	private int currentStage = 0;
 
-	public CarRace(CarMoveRule carMoveRule, List<Car> cars, int maxStage) {
+	public CarRace(CarMoveRule carMoveRule, List<Car> cars) {
 		this.carMoveRule = carMoveRule;
 		this.cars = cars;
-		this.maxStage = maxStage;
 	}
 
 	public List<Car> getCars() {
@@ -17,10 +15,6 @@ public class CarRace {
 	}
 
 	public void runRound() {
-		// stage number ++
-		currentStage++;
-
-		// cars move
 		for (Car car : cars) {
 			boolean move = carMoveRule.move();
 			if (move) {
@@ -29,7 +23,9 @@ public class CarRace {
 		}
 	}
 
-	public boolean isEnd() {
-		return maxStage == currentStage;
+
+	public List<Car> getWinningCars() {
+		int maxPosition = cars.stream().mapToInt(Car::getPosition).max().orElse(0);
+		return cars.stream().filter(car -> car.getPosition() == maxPosition).collect(Collectors.toList());
 	}
 }

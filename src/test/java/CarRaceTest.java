@@ -19,7 +19,7 @@ public class CarRaceTest {
 
 	@Test
 	void getCars() {
-		CarRace carRace = new CarRace(new CarMoveRule(), cars,5 );
+		CarRace carRace = new CarRace(new CarMoveRule(), cars);
 		List<Car> result = carRace.getCars();
 
 		for (Car car : cars) {
@@ -29,7 +29,7 @@ public class CarRaceTest {
 	@CsvSource({"true, 2", "false, 1"})
 	@ParameterizedTest
 	void runRound(boolean returnValue, int position) {
-		CarRace carRace = new CarRace(new TestCarMoveRule(returnValue), cars, 5);
+		CarRace carRace = new CarRace(new TestCarMoveRule(returnValue), cars);
 
 		carRace.runRound();
 		for (Car car : carRace.getCars()) {
@@ -38,20 +38,32 @@ public class CarRaceTest {
 	}
 
 	@Test
-	void isEnd_stage5call5() {
-		CarRace carRace = new CarRace(new CarMoveRule(), cars, 5);
-		for (int i = 0; i < 5; i++) {
-			carRace.runRound();
-		}
-		assertThat(carRace.isEnd()).isTrue();
+	void getWinningCars_singleWinner() {
+		cars.get(0).moveForward();
+		cars.get(0).moveForward();
+		cars.get(0).moveForward();
+		cars.get(1).moveForward();
+		cars.get(1).moveForward();
+
+		CarRace carRace = new CarRace(new CarMoveRule(), cars);
+
+		List<Car> winningCars = carRace.getWinningCars();
+
+		assertThat(winningCars).contains(cars.get(0));
 	}
 
 	@Test
-	void isEnd_stage5call3() {
-		CarRace carRace = new CarRace(new CarMoveRule(), cars, 5);
-		for (int i = 0; i < 3; i++) {
-			carRace.runRound();
-		}
-		assertThat(carRace.isEnd()).isFalse();
+	void getWinningCars_multipleWinner() {
+		cars.get(0).moveForward();
+		cars.get(0).moveForward();
+		cars.get(1).moveForward();
+		cars.get(1).moveForward();
+
+		CarRace carRace = new CarRace(new CarMoveRule(), cars);
+
+		List<Car> winningCars = carRace.getWinningCars();
+
+		assertThat(winningCars).contains(cars.get(0));
+		assertThat(winningCars).contains(cars.get(1));
 	}
 }
