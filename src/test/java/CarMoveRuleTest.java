@@ -10,7 +10,6 @@ public class CarMoveRuleTest {
     @ParameterizedTest
     void move(int value, boolean move) {
         CarMoveRule carMoveRule = new CarMoveRule(() -> value);
-
         boolean result = carMoveRule.isMovable();
         assertThat(result).isEqualTo(move);
     }
