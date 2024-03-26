@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CarRace {
 	private final List<Car> cars;
@@ -22,7 +23,6 @@ public class CarRace {
 			}
 		}
 	}
-
 
 	public List<Car> getWinningCars() {
 		int maxPosition = cars.stream().mapToInt(Car::getPosition).max().orElse(0);
