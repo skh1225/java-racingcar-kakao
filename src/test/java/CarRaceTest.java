@@ -2,6 +2,10 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import carrace.domain.Car;
+import carrace.domain.CarRace;
+import carrace.domain.CarMoveRule;
+import carrace.domain.RandomNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,17 +23,17 @@ public class CarRaceTest {
 
 	@Test
 	void getCars() {
-		CarRace carRace = new CarRace(new CarMoveRule(), cars);
+		CarRace carRace = new CarRace(new CarMoveRule(new RandomNumberGenerator()), cars);
 		List<Car> result = carRace.getCars();
 
 		for (Car car : cars) {
 			assertThat(result).contains(car);
 		}
 	}
-	@CsvSource({"true, 2", "false, 1"})
+	@CsvSource({"9, 2", "1, 1"})
 	@ParameterizedTest
-	void runRound(boolean returnValue, int position) {
-		CarRace carRace = new CarRace(new TestCarMoveRule(returnValue), cars);
+	void runRound(int generatedNumber, int position) {
+		CarRace carRace = new CarRace(new CarMoveRule(() -> generatedNumber), cars);
 
 		carRace.runRound();
 		for (Car car : carRace.getCars()) {
@@ -45,7 +49,7 @@ public class CarRaceTest {
 		cars.get(1).moveForward();
 		cars.get(1).moveForward();
 
-		CarRace carRace = new CarRace(new CarMoveRule(), cars);
+		CarRace carRace = new CarRace(new CarMoveRule(new RandomNumberGenerator()), cars);
 
 		List<Car> winningCars = carRace.getWinningCars();
 
@@ -59,7 +63,7 @@ public class CarRaceTest {
 		cars.get(1).moveForward();
 		cars.get(1).moveForward();
 
-		CarRace carRace = new CarRace(new CarMoveRule(), cars);
+		CarRace carRace = new CarRace(new CarMoveRule(new RandomNumberGenerator()), cars);
 
 		List<Car> winningCars = carRace.getWinningCars();
 
