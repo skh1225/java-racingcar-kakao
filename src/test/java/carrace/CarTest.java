@@ -1,3 +1,5 @@
+package carrace;
+
 import carrace.domain.Car;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
