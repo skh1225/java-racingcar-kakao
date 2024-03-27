@@ -9,6 +9,7 @@ import java.util.List;
 
 import carrace.domain.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -29,6 +30,7 @@ public class CarRaceTest {
     }
 
     @Test
+    @DisplayName("getCars 메소드는 자동차 리스트를 반환한다.")
     void getCars() {
         CarRace carRace = new CarRace(new CarMoveRule(randomNumberGenerator), cars, 5);
 
@@ -39,6 +41,7 @@ public class CarRaceTest {
 
     @CsvSource({"4, 2", "3, 1"})
     @ParameterizedTest
+    @DisplayName("라운드가 진행되면 각 자동차에 대해 moveIfMovable이 호출된다.")
     void runRound(int generatedNumber, int position) {
         CarRace carRace = new CarRace(new CarMoveRule(() -> generatedNumber), cars, 5);
 
@@ -48,6 +51,7 @@ public class CarRaceTest {
     }
 
     @Test
+    @DisplayName("가장 위치가 높은 자동차가 하나일 경우 그 자동차가 우승자가 된다.")
     void getWinningCars_singleWinner() {
         Car winnerCar = cars.get(0);
         CarRace carRace = createCarRaceWithSingleWinner(winnerCar);
@@ -67,6 +71,7 @@ public class CarRaceTest {
     }
 
     @Test
+    @DisplayName("가장 위치가 높은 자동차가 여러개일 경우 이에 해당하는 자동차 모두가 우승자이다.")
     void getWinningCars_multipleWinner() {
         Car winnerCar1 = cars.get(0);
         Car winnerCar2 = cars.get(1);
@@ -81,6 +86,7 @@ public class CarRaceTest {
     }
 
     @Test
+    @DisplayName("자동차 경주에 참여하는 자동차의 이름은 중복되면 안된다.")
     void validateDuplicateNames() {
         Car car4 = new Car("car3");
         cars.add(car4);
