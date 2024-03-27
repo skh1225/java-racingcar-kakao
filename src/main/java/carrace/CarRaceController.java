@@ -17,28 +17,22 @@ public class CarRaceController {
 	}
 
 	public void play() {
-		CarRace carRace = initCarRace();
-		int round = initRound();
-		proceedRounds(carRace, round);
+		List<Car> cars = createCars(view.getCarNames());
+		int round = view.getCarRaceRound();
+		CarRace carRace = new CarRace(new CarMoveRule(new RandomNumberGenerator()), cars, round);
+		proceedRounds(carRace);
 		endRace(carRace);
 	}
 
-	private CarRace initCarRace() {
-		return new CarRace(new CarMoveRule(new RandomNumberGenerator()), createCars(view.getCarNames()));
-	}
 
 	private List<Car> createCars(List<String> carNames) {
 		return carNames.stream().map(Car::new).collect(Collectors.toList());
 	}
 
-	private int initRound() {
-		return view.getCarRaceRound();
-	}
-
-	private void proceedRounds(CarRace carRace, int round) {
+	private void proceedRounds(CarRace carRace) {
 		view.displayResultStartMessage();
 		view.displayRoundResult(carRace.getCars());
-		for (int r = 0; r < round; r++) {
+		while (!carRace.isEnd()) {
 			carRace.runRound();
 			view.displayRoundResult(carRace.getCars());
 		}

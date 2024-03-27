@@ -30,7 +30,7 @@ public class CarRaceTest {
 
     @Test
     void getCars() {
-        CarRace carRace = new CarRace(new CarMoveRule(randomNumberGenerator), cars);
+        CarRace carRace = new CarRace(new CarMoveRule(randomNumberGenerator), cars, 5);
 
         List<Car> result = carRace.getCars();
 
@@ -40,7 +40,7 @@ public class CarRaceTest {
     @CsvSource({"4, 2", "3, 1"})
     @ParameterizedTest
     void runRound(int generatedNumber, int position) {
-        CarRace carRace = new CarRace(new CarMoveRule(() -> generatedNumber), cars);
+        CarRace carRace = new CarRace(new CarMoveRule(() -> generatedNumber), cars, 5);
 
         carRace.runRound();
 
@@ -63,7 +63,7 @@ public class CarRaceTest {
     private CarRace createCarRaceWithSingleWinner(Car winnerCar) {
         winnerCar.moveForward();
         winnerCar.moveForward();
-        return new CarRace(new CarMoveRule(randomNumberGenerator), cars);
+        return new CarRace(new CarMoveRule(randomNumberGenerator), cars, 5);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class CarRaceTest {
     void validateDuplicateNames() {
         Car car4 = new Car("car3");
         cars.add(car4);
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new CarRace(new CarMoveRule(randomNumberGenerator), cars));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new CarRace(new CarMoveRule(randomNumberGenerator), cars, 5));
     }
 
     private CarRace createCarRaceWithTwoWinners(Car winnerCar1, Car winnerCar2) {
@@ -92,6 +92,6 @@ public class CarRaceTest {
         winnerCar1.moveForward();
         winnerCar2.moveForward();
         winnerCar2.moveForward();
-        return new CarRace(new CarMoveRule(randomNumberGenerator), cars);
+        return new CarRace(new CarMoveRule(randomNumberGenerator), cars, 5);
     }
 }

@@ -7,17 +7,21 @@ public class CarRace {
 
 	private final CarMoveRule carMoveRule;
 	private final List<Car> cars;
+	private final int totalRound;
+	private int currentRound;
 
-	public CarRace(CarMoveRule carMoveRule, List<Car> cars) {
+	public CarRace(CarMoveRule carMoveRule, List<Car> cars, int totalRound) {
 		validateDuplicateCarNames(cars);
 		this.carMoveRule = carMoveRule;
 		this.cars = cars;
+		this.totalRound = totalRound;
 	}
 
 	public void runRound() {
 		for (Car car : cars) {
 			moveIfMovable(car);
 		}
+		currentRound++;
 	}
 
 	private void moveIfMovable(Car car) {
@@ -39,5 +43,15 @@ public class CarRace {
 		if (cars.size() != cars.stream().map(Car::getName).distinct().count()) {
 			throw new IllegalArgumentException("중복된 자동차의 이름이 존재합니다.");
 		}
+	}
+
+	private void validateRound() {
+		if (cars.size() != cars.stream().map(Car::getName).distinct().count()) {
+			throw new IllegalArgumentException("중복된 자동차의 이름이 존재합니다.");
+		}
+	}
+
+	public boolean isEnd() {
+		return totalRound == currentRound;
 	}
 }
