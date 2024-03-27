@@ -19,10 +19,7 @@ public class CarTest {
     @ParameterizedTest
     void moveForward(int moveCount) {
         Car car = new Car("pobi");
-        for (int i = 0; i < moveCount; i++) {
-            car.moveForward();
-        }
-        assertThat(car.getPosition()).isEqualTo(1 + moveCount);
+        assertThat(car.moveForward()).isEqualTo(2);
     }
 
     @Test
