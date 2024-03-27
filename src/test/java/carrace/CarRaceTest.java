@@ -39,7 +39,7 @@ public class CarRaceTest {
         assertThat(result).containsAll(cars);
     }
 
-    @CsvSource({"4, 2", "3, 1"})
+    @CsvSource({"4, 1", "3, 0"})
     @ParameterizedTest
     @DisplayName("라운드가 진행되면 각 자동차에 대해 moveIfMovable이 호출된다.")
     void runRound(int generatedNumber, int position) {

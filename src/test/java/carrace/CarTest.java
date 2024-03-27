@@ -12,10 +12,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class CarTest {
 
     @Test
-    @DisplayName("자동차의 초기 위치는 1이다.")
-    void initialPosition1() {
+    @DisplayName("자동차의 초기 위치는 0이다.")
+    void initialPosition0() {
         Car car = new Car("pobi");
-        assertThat(car.getPosition()).isEqualTo(1);
+        assertThat(car.getPosition()).isEqualTo(0);
     }
 
     @ValueSource(ints = {1, 3, 5, 11})
@@ -23,7 +23,7 @@ public class CarTest {
     @DisplayName("자동차에 전진 명령을 내리면 위치가 1늘어난다.")
     void moveForward(int moveCount) {
         Car car = new Car("pobi");
-        assertThat(car.moveForward()).isEqualTo(2);
+        assertThat(car.moveForward()).isEqualTo(1);
     }
 
     @Test

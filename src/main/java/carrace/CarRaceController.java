@@ -31,7 +31,6 @@ public class CarRaceController {
 
 	private void proceedRounds(CarRace carRace) {
 		view.displayResultStartMessage();
-		view.displayRoundResult(carRace.getCars());
 		while (!carRace.isEnd()) {
 			carRace.runRound();
 			view.displayRoundResult(carRace.getCars());
