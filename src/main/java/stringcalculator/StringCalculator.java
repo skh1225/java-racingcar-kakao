@@ -5,12 +5,14 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
+    private static final Pattern pattern = Pattern.compile("//(.)\n(.*)");
+
     public static int calculate(String input) {
         if (isNullOrBlank(input)) {
             return 0;
         }
 
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(input);
+        Matcher m = pattern.matcher(input);
         if (m.find()) {
             return add(split(m.group(1), m.group(2)));
         }
