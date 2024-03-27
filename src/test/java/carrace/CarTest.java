@@ -1,11 +1,11 @@
 package carrace;
 
+import static org.assertj.core.api.Assertions.*;
+
 import carrace.domain.Car;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CarTest {
 
@@ -27,5 +27,10 @@ public class CarTest {
         Car car = new Car("pobi");
         String carName = car.getName();
         assertThat(carName).isEqualTo("pobi");
+    }
+
+    @Test
+    void carNameLengthOver5() {
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new Car("pobiii"));
     }
 }

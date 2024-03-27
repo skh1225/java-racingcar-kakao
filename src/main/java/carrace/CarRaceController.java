@@ -46,8 +46,8 @@ public class CarRaceController {
 
 	private void endRace(CarRace carRace) {
 		view.displayWinnerNames(carRace.getWinningCars()
-				.stream()
-				.map(Car::getName)
-				.collect(Collectors.toList()));
+			.stream()
+			.map(Car::getName)
+			.collect(Collectors.toList()));
 	}
 }

@@ -16,28 +16,8 @@ public class CarRaceView {
 	public List<String> getCarNames() {
 		System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
 		List<String> carNames = Stream.of(scanner.nextLine().split(",")).collect(Collectors.toList());
-		for (String carName : carNames) {
-			validateName(carName);
-		}
 		validateDuplicateNames(carNames);
 		return carNames;
-	}
-
-	public void validateName(String carName) {
-		if (carName.length() > 5) {
-			throw new IllegalArgumentException("자동차의 이름은 5자이하여야 합니다.");
-		}
-
-		if (carName.isEmpty()) {
-			throw new IllegalArgumentException("자동차의 이름은 공백이 아니여야 합니다.");
-		}
-	}
-
-	public void validateDuplicateNames(List<String> carNames) {
-		Set<String> carNamesSet = new HashSet<>(carNames);
-		if (carNames.size() != carNamesSet.size()) {
-			throw new IllegalArgumentException("중복된 이름이 존재합니다.");
-		}
 	}
 
 	public int getCarRaceRound() {

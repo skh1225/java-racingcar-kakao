@@ -3,6 +3,8 @@ package carrace;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import carrace.domain.*;
@@ -23,7 +25,7 @@ public class CarRaceTest {
         Car car1 = new Car("car1");
         Car car2 = new Car("car2");
         Car car3 = new Car("car3");
-        cars = List.of(car1, car2, car3);
+        cars = new ArrayList<Car>(Arrays.asList(car1, car2, car3));
     }
 
     @Test
@@ -76,6 +78,13 @@ public class CarRaceTest {
             softly.assertThat(winningCars).containsAll(List.of(winnerCar1, winnerCar2));
             softly.assertThat(winningCars.size()).isEqualTo(2);
         });
+    }
+
+    @Test
+    void validateDuplicateNames() {
+        Car car4 = new Car("car3");
+        cars.add(car4);
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new CarRace(new CarMoveRule(randomNumberGenerator), cars));
     }
 
     private CarRace createCarRaceWithTwoWinners(Car winnerCar1, Car winnerCar2) {

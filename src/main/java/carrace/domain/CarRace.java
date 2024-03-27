@@ -9,6 +9,7 @@ public class CarRace {
 	private final List<Car> cars;
 
 	public CarRace(CarMoveRule carMoveRule, List<Car> cars) {
+		validateDuplicateCarNames(cars);
 		this.carMoveRule = carMoveRule;
 		this.cars = cars;
 	}
@@ -32,5 +33,11 @@ public class CarRace {
 
 	public List<Car> getCars() {
 		return this.cars;
+	}
+
+	private void validateDuplicateCarNames(List<Car> cars) {
+		if (cars.size() != cars.stream().map(Car::getName).distinct().count()) {
+			throw new IllegalArgumentException("중복된 자동차의 이름이 존재합니다.");
+		}
 	}
 }
